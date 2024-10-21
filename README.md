@@ -15,7 +15,7 @@ Welcome to the CryptoZombies DApp! This decentralized application (DApp) allows 
 
 ## GitHub Repository
 
-[GitHub Link to the DApp]([https://github.com/ajay094-dev/BlockChain-Midterm-main.git](https://github.com/dakidinesh/Cryptozombie))
+[GitHub Link to the DApp] https://github.com/dakidinesh/Cryptozombie
 
 ---
 
