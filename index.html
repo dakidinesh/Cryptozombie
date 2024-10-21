@@ -10,7 +10,57 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
   <script language="javascript" type="text/javascript" src="cryptozombies_abi.js"></script>
+  <style>
+    /* Add background image to the body */
+    body {
+      background-image: url('https://mwi.westpoint.edu/wp-content/uploads/2024/03/zombie-nouns-1200x640.jpg'); /* Replace with the path to your image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* Make buttons stand out on the background */
+    button {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Style for zombie list */
+    #zombies {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .zombie {
+      margin-bottom: 10px;
+    }
+
+    .zombie-image {
+  width: 150px;
+  height: 150px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+  </style>
 </head>
+
 
 <body>
   <div id="txStatus"></div>
@@ -31,7 +81,7 @@
     function startApp() {
 	
       //ZombieOwnership contratc address
-      var cryptoZombiesAddress = "0xdC3943Bc91Aaf13B433A8f2A45e5269f17B387cc";
+      var cryptoZombiesAddress = "0x8f07258DfA33218908Af5101De4152d66FB3E8f3";
 
       cryptoZombies = new web3.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
 
@@ -47,6 +97,7 @@
       //  }
      // }, 100);
 
+
       cryptoZombies.events.Transfer({ filter: { _to: userAccount } })
         .on("data", function (event) {
           let data = event.returnValues;
@@ -54,28 +105,33 @@
         }).on("error", console.error);
     }
 
-    function displayZombies(ids) {
-      $("#zombies").empty();
-      for (id of ids) {
+    function getZombieImage(dna) {
+  // For simplicity, use a basic modulo operation to select one of 5 images
+  const imageIndex = dna % 5;  // Assuming you have 5 zombie images
+  return `./images/${imageIndex + 1}.png`;
+}
 
-        getZombieDetails(id)
-          .then(function (zombie) {
+function displayZombies(ids) {
+  $("#zombies").empty();
+  for (let id of ids) {
+    getZombieDetails(id).then(function (zombie) {
+      const zombieImage = getZombieImage(zombie.dna);  // Get image based on DNA
+      $("#zombies").append(`
+        <div class="zombie">
+          <img src="${zombieImage}" class="zombie-image" alt="Zombie Image" />
+          <ul>
+            <li>Name: ${zombie.name}</li>
+            <li>DNA: ${zombie.dna}</li>
+            <li>Level: ${zombie.level}</li>
+            <li>Wins: ${zombie.winCount}</li>
+            <li>Losses: ${zombie.lossCount}</li>
+            <li>Ready Time: ${zombie.readyTime}</li>
+          </ul>
+        </div>`);
+    });
+  }
+}
 
-
-            $("#zombies").append(`<div class="zombie">
-              <ul>
-                <li>Name: ${zombie.name}</li>
-                <li>DNA: ${zombie.dna}</li>
-                <li>Level: ${zombie.level}</li>
-                <li>Wins: ${zombie.winCount}</li>
-                <li>Losses: ${zombie.lossCount}</li>
-                <li>Ready Time: ${zombie.readyTime}</li>
-              </ul>
-            </div>`);
-          });
-      }
-
-    }
 
     function createRandomZombie(name) {
 
