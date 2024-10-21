@@ -5,7 +5,7 @@ Pavithra Halanayakanahalli Amaresh - 885155101 - pavithraha@csu.fullerton.edu
 
 Lakshmi Poojitha Lysetti - 885155077 - poojithalysetti@csu.fullerton.edu
 
-Sandeep Divakaruni - 876253808 - 
+Sandeep Divakaruni - 876253808 - Sandeepd@csu.fullerton.edu
 
 Dinesh Daki - 861345742 - daki2001@csu.fullerton.edu
 
